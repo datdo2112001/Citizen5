@@ -26,9 +26,8 @@
         <%= link_to "CITIZEN V", '#', id: "logo" %>
         <nav>
           <ul class="nav navbar-nav navbar-right">
-            <li><%= link_to "Tổng quan", overall_path %></li>
-            <li><%= link_to "Phân tích", '#' %></li>
-
+            <li><%= link_to "Tổng quan & phân tích", overall_path %></li>
+            
             <% if current_user.tk != "B2" %>
               <li><%= link_to "Quản lý dân số", showlocal_path %></li>
             <% end %>
@@ -37,11 +36,13 @@
               <li><%= link_to "Khai báo dân số", showcitizen_path %></li>
             <% end %>
 
+            <% if current_user.tk != "B2" %>
             <li><%= link_to "Quản lý người dùng", alluser_path %></li>
             <li><%= link_to "Thêm người dùng mới", signup_path %></li>
+            <% end %>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <%= current_user.tk %> | <%= current_user.region %> <b class="caret"></b>
+              <%= current_user.tk %> <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
               <li><%= link_to "Thông tin tài khoản", "#" %></li>
@@ -61,15 +62,7 @@
         <div class="alert alert-<%= message_type %>"><%= message %></div>
       <% end %>
       <%= yield %>
-      <footer class="footer">
-      <nav>
-        <ul>
-          <li><%= link_to "About", '#' %></li>
-          <li><%= link_to "Contact", '#' %></li>
-          <li><a href="https://news.railstutorial.org/">News</a></li>
-        </ul>
-      </nav>
-    </footer>
+
     </div>
   </body>
 </html>

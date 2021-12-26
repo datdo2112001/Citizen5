@@ -58,42 +58,9 @@
     <ul class="users" id="locals">
       <% @results.each do |local| %>
         <li>
-            
-            <table border="1" style="width:110%">
-        <thead>
-        <td>
-          Khu vực
-        </td>
-        <td>
-          Code
-        </td>
-        <td>
-          Trạng thái
-        </td>
-        <td>
-          Dân số
-        </td>
-        </thead>
-        
-        <td>
-          <%= local.name %>
-        </td>
-        <td>
-          <%= local.code %>
-        </td>
-        <td>
-          <%= local.status %>
-        </td>
-        <td>
-          <%= local.count %>
-        </td>
-        <td>
-            <%= link_to 'Detail', "/detail/#{local.code}", class: 'btn btn-primary' %>
-        </td>
-          <td>
-            <%= link_to 'Delete', local, method: :delete, data: { confirm: 'Are you sure?' }, remote: :true, class: "destroy-local btn btn-warning" %>
-          </td>
-        </table>
+            <%= local.name %> -- <%= local.code %> -- <%= local.status %> -- Dan so: <%= local.count %>
+            <%= link_to 'Danh sách dân số', "/detail/#{local.code}", class: 'btn btn-primary' %>
+            <%= link_to 'Xóa', local, method: :delete, data: { confirm: 'Are you sure?' }, remote: :true, class: "destroy-local btn btn-warning" %>
             <% if local.code < 01010101 %>
               <%= link_to 'Địa phương trực thuộc', "/sublocal/#{local.code}", class: 'btn btn-primary' %>
             <% end %>
@@ -107,4 +74,3 @@
 
 
       <% end %>
-    </ul>
