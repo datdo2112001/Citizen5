@@ -1,5 +1,5 @@
 <li>
-        <%= local.name %> -- <%= local.code %> -- <%= local.status %>
+        <%= local.name %> -- <%= local.code %> -- <%= local.status %> -- Dan so: <%= local.count %>
         <%= link_to 'Danh sách dân số', "/detail/#{local.code}", class: 'btn btn-primary' %>
         <%= link_to 'Xóa', local, method: :delete, data: { confirm: 'Are you sure?' }, remote: :true, class: "destroy-local btn btn-warning" %>
         <% if local.code < 01010101 %>

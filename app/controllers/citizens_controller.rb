@@ -42,6 +42,17 @@ class CitizensController < ApplicationController
 
   def overall
     @count = Citizen.count
+    @locals = []
+    @all = Local.all
+    @all.each do |local|
+      if (local.code >= 01 && local.code <= 63)
+        @locals.push(local)
+      end
+    end
+
+    @people = []
+    
+
   end
 
   def destroy

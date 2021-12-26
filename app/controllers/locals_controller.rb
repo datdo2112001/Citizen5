@@ -8,6 +8,18 @@ class LocalsController < ApplicationController
   def index
     @locals = Local.all
     @results = []
+    @citizens = Citizen.all
+
+    @locals.each do |local|
+      temp = 0;
+      @citizens.each do |citizen|
+        if (checkcode(local.code, citizen.code) == true)
+          temp += 1
+        end
+      end
+      local.update_attribute(:count, temp)
+    end
+    
     @locals.each do |local|
       if (current_user.tk == "A1")
         if (local.code >= 0 && local.code <= 63)
@@ -50,8 +62,7 @@ class LocalsController < ApplicationController
   end
 
   def local_params
-    params.require(:local).permit(:name, :code, :status)
-
+    params.require(:local).permit(:name, :code, :status, :count)
   end
 
   def destroy

@@ -44,6 +44,7 @@
             <%= f.number_field :code, min: 01010101, max:63999999, step: 1 %>
           <% end %>
           <%= f.hidden_field :status, :value => 'Chua hoan thanh' %>
+          <%= f.hidden_field :count, :value => 0 %>
           <%= f.submit %>
         <% end %>
       </div>
@@ -57,7 +58,7 @@
     <ul class="users" id="locals">
       <% @results.each do |local| %>
         <li>
-            <%= local.name %> -- <%= local.code %> -- <%= local.status %>
+            <%= local.name %> -- <%= local.code %> -- <%= local.status %> -- Dan so: <%= local.count %>
             <%= link_to 'Danh sách dân số', "/detail/#{local.code}", class: 'btn btn-primary' %>
             <%= link_to 'Xóa', local, method: :delete, data: { confirm: 'Are you sure?' }, remote: :true, class: "destroy-local btn btn-warning" %>
             <% if local.code < 01010101 %>
