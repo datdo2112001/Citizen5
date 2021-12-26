@@ -52,6 +52,29 @@ class CitizensController < ApplicationController
 
     @people = []
     
+    @citizens = Citizen.all
+    @male = 0
+    @female = 0
+
+    if (current_user.tk == "A1")
+      @citizens.each do |citizen|
+        if (citizen.sex == "Nam")
+          @male += 1
+        elsif (citizen.sex == "Nu")
+          @female += 1
+        end
+      end
+    else
+      @citizens.each do |citizen|
+        if (checkcode(current_user.accountname, citizen.code) == true)
+          if (citizen.sex == "Nam")
+            @male += 1
+          elsif (citizen.sex == "Nu")
+            @female += 1
+          end
+        end
+      end
+    end
 
   end
 
@@ -68,7 +91,21 @@ class CitizensController < ApplicationController
   def detail
     @citizens = Citizen.all
     @current_code = params[:code]
-  end 
+  end
+
+  def edit
+    @citizen = Citizen.find(params[:id])
+  end
+
+  def update
+    @citizen = Citizen.find(params[:id])
+    if @citizen.update(citizen_params)
+      # Handle a successful update.
+      redirect_to @citizen
+    else
+      render 'edit'
+    end
+  end
 
 
 

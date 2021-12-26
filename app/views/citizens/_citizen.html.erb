@@ -10,7 +10,7 @@
   <td><%= citizen.edulevel %></td>
   <td><%= citizen.job %></td>
   <td><%= citizen.code %></td>
-  <td><%= link_to 'Edit', '#', class: 'btn btn-primary' %></td>
+  <td><%= link_to 'Edit', edit_citizen_path(citizen), class: 'btn btn-primary' %></td>
   <td><%= link_to 'Delete', citizen, method: :delete, data: { confirm: 'Are you sure?' }, remote: :true, class: "destroy-citizen btn btn-primary" %></td>
   
 </tr>
