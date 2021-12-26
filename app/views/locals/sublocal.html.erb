@@ -1,0 +1,18 @@
+<div class="container">
+<h1> <%= @current_local.name %> - <%= @current_code %> </h1>
+<ul class="users" id="locals">
+  <% @locals.each do |local| %>
+    <% if (local.code != @current_code.to_i ) %>
+    <li>
+    	<%= local.name %> -- <%= local.code %> -- <%= local.status %>
+        <%= link_to 'Danh sách dân số', "/detail/#{local.code}", class: 'btn btn-primary' %>
+        <%= link_to 'Xóa', local, method: :delete, data: { confirm: 'Are you sure?' }, remote: :true, class: "destroy-local btn btn-warning" %>
+        <% if local.code < 01010101 %>
+            <%= link_to 'Địa phương trực thuộc', "/sublocal/#{local.code}", class: 'btn btn-primary' %>
+        <% end %>
+	</li>
+	<% end %>
+
+  <% end %>
+</ul>
+

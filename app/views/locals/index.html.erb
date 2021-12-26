@@ -1,0 +1,76 @@
+<button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black">
+  <% if (current_user.tk == "A1") %>
+    Thêm tỉnh thành 
+  <% elsif (current_user.tk == "A2") %>
+    Thêm quận huyện 
+  <% elsif (current_user.tk == "A3") %>
+    Thêm xã phường 
+  <% elsif (current_user.tk == "B1") %>
+    Thêm thôn, bản, tổ dân phố
+  <% end %>
+
+
+</button>
+
+  <div id="id01" class="w3-modal">
+    <div class="w3-modal-content">
+      <header class="w3-container w3-teal"> 
+        <span onclick="document.getElementById('id01').style.display='none'" 
+        class="w3-button w3-display-topright">&times;</span>
+        <h2>
+          <% if (current_user.tk == "A1") %>
+            Thêm tỉnh thành 
+          <% elsif (current_user.tk == "A2") %>
+            Thêm quận huyện 
+          <% elsif (current_user.tk == "A3") %>
+            Thêm xã phường 
+          <% elsif (current_user.tk == "B1") %>
+            Thêm thôn, bản, tổ dân phố
+          <% end %>
+        </h2>
+      </header>
+      <div class="w3-container">
+        <%= form_for(@local, remote: true) do |f| %>
+          <%= f.label :Name %><br>
+          <%= f.text_field :name %><br>
+          <%= f.label :Code %><br>
+          <% if (current_user.tk == "A1") %>
+            <%= f.number_field :code, min: 01, max:63, step: 1 %>
+          <% elsif (current_user.tk == "A2") %>
+            <%= f.number_field :code, min: 0101, max:6399, step: 1 %> 
+          <% elsif (current_user.tk == "A3") %>
+            <%= f.number_field :code, min: 010101, max:639999, step: 1 %> 
+          <% elsif (current_user.tk == "B1") %>
+            <%= f.number_field :code, min: 01010101, max:63999999, step: 1 %>
+          <% end %>
+          <%= f.hidden_field :status, :value => 'Chua hoan thanh' %>
+          <%= f.submit %>
+        <% end %>
+      </div>
+      <footer class="w3-container w3-teal">
+        <p></p>
+      </footer>
+    </div>
+  </div>
+
+  <h1> ALL LOCAL </h1>
+    <ul class="users" id="locals">
+      <% @results.each do |local| %>
+        <li>
+            <%= local.name %> -- <%= local.code %> -- <%= local.status %>
+            <%= link_to 'Danh sách dân số', "/detail/#{local.code}", class: 'btn btn-primary' %>
+            <%= link_to 'Xóa', local, method: :delete, data: { confirm: 'Are you sure?' }, remote: :true, class: "destroy-local btn btn-warning" %>
+            <% if local.code < 01010101 %>
+              <%= link_to 'Địa phương trực thuộc', "/sublocal/#{local.code}", class: 'btn btn-primary' %>
+            <% end %>
+            <% if current_user.tk == "B1" && local.status == "Chua hoan thanh"%>
+              <%= link_to 'Đánh dấu đã hoàn thành', "/changelocalstatus/#{local.code}", class: 'btn btn-primary' %>
+            <% elsif current_user.tk == "B1" && local.status == "Da hoan thanh" %>
+              <%= link_to 'Đánh dấu chưa hoàn thành', "/changelocalstatus/#{local.code}", class: 'btn btn-primary' %>
+            <% end %>
+
+        </li>
+
+
+      <% end %>
+    </ul>
