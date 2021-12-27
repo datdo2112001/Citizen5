@@ -1,8 +1,6 @@
 # CitizenV
 ## Phần mềm quản lý dân số
 
-[![N|Solid](https://cldup.com/dTxpPi9lDf.thumb.png)](https://nodesource.com/products/nsolid)
-
 Phần mềm tích hợp cho phép quản lý người dân
 - Biểu đồ dễ dàng cho việc quản lý thông tin người dân
 - Nhanh chóng trong việc tạo và xem thông tin
